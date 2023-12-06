@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# This bash script uses the current working directory to create a simple
+# script to run the soPrinter command anywhere in a user's workspace.
+
+installScript() {
+  scriptName=$1
+  cmdScript=$(pwd)/.venv/bin/$scriptName
+
+  cat << CMD_SCRIPT > $HOME/.local/bin/$scriptName
+#!/bin/sh
+
+# This shell script was created by the citationManager tool
+#       './scripts/installEditableCMCommands'
+# script.
+
+exec $cmdScript \$@
+CMD_SCRIPT
+
+  chmod a+x $HOME/.local/bin/$scriptName
+}
+
+##########################################################################
+
+installScript soPrinter
+
+echo ""
+echo "Editable soPrinter command has been created"
+echo ""
